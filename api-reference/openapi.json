@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://sandbox.payblis.com"
     }
   ],
   "security": [
@@ -19,9 +19,8 @@
     }
   ],
   "paths": {
-    "/plants": {
+    "/api/REST/create-order": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
         "parameters": [
           {
             "name": "limit",
