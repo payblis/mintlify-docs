@@ -33,6 +33,13 @@
             "pages": [
               "api-reference/ipn"
             ]
+          },
+          {
+            "group": "Debug & Testing",
+            "pages": [
+              "api-reference/error",
+              "api-reference/card"
+            ]
           }
         ]
       }
