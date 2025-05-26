@@ -40,6 +40,12 @@
               "api-reference/error",
               "api-reference/card"
             ]
+          },
+          {
+            "group": "Plugin & CMS",
+            "pages": [
+              "api-reference/plugins"
+            ]
           }
         ]
       }
