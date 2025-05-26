@@ -32,3 +32,39 @@ if (!hash_equals($expectedSignature, $signature)) {
 // Process the IPN data
 $data = json_decode($payload, true);
 ```
+## IPN Example
+
+```mdx payment.success
+{
+    "event": "payment.success",
+    "merchant_reference": "Order-xxxxxxx",
+    "transaction_id": "PAYBxxxxxxx",
+    "amount": "14.17",
+    "status": "SUCCESS",
+    "payment_details": {
+        "card_brand": "VISA",
+        "card_last4": "6624",
+        "authorization_code": "000000",
+        "transaction_date": "2025-05-07 03:53:04",
+        "threeds": {
+            "status": "Y",
+            "warranty": true,
+            "warranty_details": "100% liability transfer to the bank of the holder"
+        },
+        "arn": "123456",
+        "archive": "OEIT51WRIWOV"
+    }
+}
+```
+```mdx payment.failed
+{
+    "event": "payment.failed",
+    "merchant_reference": "1098",
+    "transaction_id": "PAYB-FAILED-6818766989175",
+    "amount": "10",
+    "status": "FAILED",
+    "payment_details": {
+        "failure_reason": "Card validation failed"
+    }
+}
+```
