@@ -1,71 +1,39 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: "Introduction"
+description: "Processing Payments with Payblis API"
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+The Payblis API allows merchants to securely process payments on behalf of their customers. This guide outlines the essential steps to integrate with the Payblis platform and manage transactions efficiently.
 
-## Setting up
+## Base URL
 
-The first step to world-class documentation is setting up your editing environments.
+<Card title="Production URL" icon="code">
+  https://pay.payblis.com/api
+</Card>
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
+<Card title="Sandbox URL" icon="code">
+  https://sandbox.payblis.com/api
+</Card>
 
-## Make it yours
+<Note>
+  Sandbox Environment
 
-Update your docs to your brand and add valuable content for the best user conversion.
+  - Use for testing and development
+  - Test cards only work in sandbox
+  - No real transactions processed
+  - Identical API structure to production
+</Note>
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+## Authentication
+
+Secure your integration using your **Merchant Key** and **Secret Key**. Keep these credentials secure and never expose them publicly.
+
+<Warning>
+  Security Warning
+  Your Merchant Key and Secret Key are unique to your account. Never share them or commit them to version control.
+</Warning>
+
+<Note>
+  HMAC Signature
+  All requests must be signed using HMAC-SHA256 for enhanced security. The signature is calculated using your Secret Key.
+</Note>
