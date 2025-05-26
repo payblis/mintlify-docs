@@ -30,7 +30,7 @@
           {
             "group": "Callbacks & IPN",
             "pages": [
-              "api-reference/introduction",
+              "api-reference/ipn",
               "api-reference/payment-integration"
             ]
           }
