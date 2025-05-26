@@ -17,7 +17,8 @@
             "group": "API Documentation",
             "pages": [
               "api-reference/introduction",
-              "api-reference/payment-integration"
+              "api-reference/payment-integration",
+              "api-reference/parameters"
             ]
           },
           {
