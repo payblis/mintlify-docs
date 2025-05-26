@@ -1,4 +1,34 @@
 ---
 title: "Callbacks & IPN"
-description: "Description of your new file."
+description: "The Callback & IPN section describes how Payblis notifies your server and redirects your customers after a payment attempt. It includes server-to-server IPN notifications and redirection to success (urlOK) or failure (urlKO) URLs, ensuring real-time transaction updates and seamless user experience."
 ---
+
+Payblis provides three types of callbacks:
+
+- **Success URL (urlOK)**: Customer redirection after successful payment
+- **Failure URL (urlKO)**: Customer redirection after failed payment
+- **IPN URL (ipnURL)**: Server-to-server notification
+
+## IPN Security
+
+All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X-Payblis-Signature header.
+
+```php PHP Implementation
+// Get the signature from the header
+$signature = $_SERVER['HTTP_X_PAYBLIS_SIGNATURE'] ?? '';
+
+// Get the raw POST data
+$payload = file_get_contents('php://input');
+
+// Calculate the expected signature
+$expectedSignature = hash_hmac('sha256', $payload, $your_secret_key);
+
+// Compare signatures
+if (!hash_equals($expectedSignature, $signature)) {
+    http_response_code(400);
+    die('Invalid signature');
+}
+
+// Process the IPN data
+$data = json_decode($payload, true);
+```
