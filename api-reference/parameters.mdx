@@ -7,8 +7,16 @@ description: "This section lists all required parameters for the Legacy integrat
 
 We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
 
-| **Parameter** | **Type**          | **Description**   | **Required**   |
-| ------------- | ----------------- | ----------------- | ----------------- |
-| Bold          | `**bold**`        | **bold**          | **bold**          |
-| Italic        | `_italic_`        | _italic_          | _italic_          |
-| Strikethrough | `~strikethrough~` | ~~strikethrough~~ | ~~strikethrough~~ |
+| **Parameter**        | **Type**   | **Description**                 | **Required** |
+|----------------------|------------|---------------------------------|--------------|
+| MerchantKey          | `String`   | Your merchant identification key | Yes          |
+| amount               | `String`   | Transaction amount (XX.XX)       | Yes          |
+| RefOrder             | `String`   | Unique order reference           | Yes          |
+| Customer_Email       | `String`   | Customer's email                 | Yes          |
+| Customer_Name        | `String`   | Customer's name                  | Yes          |
+| Customer_FirstName   | `String`   | Customer's first name            | Yes          |
+| store_name           | `String`   | Store/business name              | Yes          |
+| urlOK                | `String`   | Success callback URL             | Yes          |
+| urlKO                | `String`   | Failure callback URL             | Yes          |
+| ipnURL               | `String`   | IPN callback URL                 | Yes          |
+| signature            | `String`   | HMAC-SHA256 signature            | Yes          |
