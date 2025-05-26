@@ -23,10 +23,8 @@
           {
             "group": "REST API Integration",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/create-order",
+              "api-reference/endpoint/transaction-status"
             ]
           }
         ]
