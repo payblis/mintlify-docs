@@ -3,4 +3,42 @@ title: "Payment Integration"
 description: "Description of your new file.fezfez"
 ---
 
-regregre
+## Legacy
+
+```java PHP Implementation
+// Set up the request parameters
+$MyVars = array(
+    'MerchantKey' => 'YOUR_MERCHANT_KEY',
+    'amount' => '19.99',
+    'RefOrder' => 'ORDER-',
+    'Customer_Email' => 'customer@example.com',
+    'Customer_Name' => 'Doe',
+    'Customer_FirstName' => 'John',
+    'country' => 'France',
+    'userIP' => $_SERVER['REMOTE_ADDR'],
+    'lang' => 'en',
+    'store_name' => 'Example Store',
+    'urlOK' => 'https://your-domain.com/success',
+    'urlKO' => 'https://your-domain.com/failed',
+    'ipnURL' => 'https://your-domain.com/ipn'
+);
+
+// Clone data BEFORE adding signature
+$varsToSign = $MyVars;
+
+// Secure signature
+$secret_key = 'YOUR_SECRET_KEY';
+$signature = hash_hmac('sha256', json_encode($varsToSign), $secret_key);
+
+// Add signature after calculation
+$MyVars['signature'] = $signature;
+
+// Encoding
+$serializedData = serialize($MyVars);
+$encoded = base64_encode($serializedData);
+
+// Redirect to secure payment page
+$paymentUrl = "https://pay.payblis.com/api/payment.php?token=" . $encoded;
+header("Location: " . $paymentUrl);
+exit;
+```
