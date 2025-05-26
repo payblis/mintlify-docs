@@ -1,87 +1,94 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Payblis REST API",
-    "description": "Modern REST API for flexible payment integration",
+    "title": "OpenAPI Plant Store",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
     "license": {
-      "name": "Proprietary"
+      "name": "MIT"
     },
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://api.payblis.com"
+      "url": "http://sandbox.mintlify.com"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
     }
   ],
   "paths": {
-    "/api/REST/create-order": {
-      "post": {
-        "description": "Create a new payment order",
+    "/plants": {
+      "get": {
+        "description": "Returns all plants from the system that the user has access to",
         "parameters": [
           {
-            "name": "X-Merchant-Key",
-            "in": "header",
-            "description": "Your merchant key",
-            "required": true,
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of results to return",
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "X-Payblis-Signature",
-            "in": "header",
-            "description": "HMAC-SHA256 signature",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "description": "Must be application/json",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "application/json"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
-        "requestBody": {
-          "description": "Order details",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateOrderRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Plant response",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/SuccessResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ThreeDSResponse"
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plant"
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Error response",
+            "description": "Unexpected error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new plant in the store",
+        "requestBody": {
+          "description": "Plant to add to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPlant"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "plant response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -89,68 +96,57 @@
         }
       }
     },
-    "/api/REST/transaction-status": {
-      "get": {
-        "description": "Check transaction status",
+    "/plants/{id}": {
+      "delete": {
+        "description": "Deletes a single plant based on the ID supplied",
         "parameters": [
           {
-            "name": "X-Merchant-Key",
-            "in": "header",
-            "description": "Your merchant key",
+            "name": "id",
+            "in": "path",
+            "description": "ID of plant to delete",
             "required": true,
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "description": "Must be application/json",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "application/json"
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
+        "responses": {
+          "204": {
+            "description": "Plant deleted",
+            "content": {}
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "/plant/webhook": {
+      "post": {
+        "description": "Information about a new plant added to the store",
         "requestBody": {
-          "description": "Transaction reference",
-          "required": true,
+          "description": "Plant added to the store",
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "ref_order": {
-                    "type": "string",
-                    "description": "Reference order number"
-                  }
-                },
-                "required": ["ref_order"]
+                "$ref": "#/components/schemas/NewPlant"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TransactionStatusResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Return a 200 status to indicate that the data was received successfully"
           }
         }
       }
@@ -158,305 +154,64 @@
   },
   "components": {
     "schemas": {
-      "CreateOrderRequest": {
+      "Plant": {
+        "required": [
+          "name"
+        ],
         "type": "object",
-        "required": ["amount", "RefOrder"],
         "properties": {
-          "amount": {
-            "type": "string",
-            "description": "Payment amount",
-            "example": "19.99"
+          "name": {
+            "description": "The name of the plant",
+            "type": "string"
           },
-          "RefOrder": {
-            "type": "string",
-            "description": "Merchant reference order number",
-            "example": "ORDER-123"
-          },
-          "Customer_Email": {
-            "type": "string",
-            "format": "email",
-            "description": "Customer email address",
-            "example": "customer@example.com"
-          },
-          "Customer_Name": {
-            "type": "string",
-            "description": "Customer last name",
-            "example": "Doe"
-          },
-          "Customer_FirstName": {
-            "type": "string",
-            "description": "Customer first name",
-            "example": "John"
-          },
-          "country": {
-            "type": "string",
-            "description": "Customer country",
-            "example": "France"
-          },
-          "userIP": {
-            "type": "string",
-            "format": "ipv4",
-            "description": "Customer IP address",
-            "example": "127.0.0.1"
-          },
-          "lang": {
-            "type": "string",
-            "description": "Language code",
-            "example": "en"
-          },
-          "store_name": {
-            "type": "string",
-            "description": "Store name",
-            "example": "Example Store"
-          },
-          "urlOK": {
-            "type": "string",
-            "format": "uri",
-            "description": "Success redirect URL",
-            "example": "https://your-domain.com/success"
-          },
-          "urlKO": {
-            "type": "string",
-            "format": "uri",
-            "description": "Failure redirect URL",
-            "example": "https://your-domain.com/failed"
-          },
-          "ipnURL": {
-            "type": "string",
-            "format": "uri",
-            "description": "Instant Payment Notification URL",
-            "example": "https://your-domain.com/ipn"
-          },
-          "cardHolderName": {
-            "type": "string",
-            "description": "Cardholder name",
-            "example": "JOHN DOE"
-          },
-          "cardno": {
-            "type": "string",
-            "description": "Card number",
-            "example": "4556557955726624"
-          },
-          "expMonth": {
-            "type": "string",
-            "description": "Card expiration month",
-            "example": "12"
-          },
-          "expYear": {
-            "type": "string",
-            "description": "Card expiration year",
-            "example": "2025"
-          },
-          "CVN": {
-            "type": "string",
-            "description": "Card verification number",
-            "example": "123"
+          "tag": {
+            "description": "Tag to specify the type",
+            "type": "string"
           }
         }
       },
-      "SuccessResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
+      "NewPlant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Plant"
           },
-          "status": {
-            "type": "string",
-            "example": "success"
-          },
-          "transaction_id": {
-            "type": "string",
-            "example": "PAYB-123456"
-          },
-          "ref_order": {
-            "type": "string",
-            "example": "ORDER-123"
-          },
-          "amount": {
-            "type": "string",
-            "example": "19.99"
-          }
-        }
-      },
-      "ThreeDSResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          },
-          "status": {
-            "type": "string",
-            "example": "pending3ds"
-          },
-          "transaction_id": {
-            "type": "string",
-            "example": "PAYB-123456"
-          },
-          "ref_order": {
-            "type": "string",
-            "example": "ORDER-123"
-          },
-          "amount": {
-            "type": "string",
-            "example": "19.99"
-          },
-          "three_ds_embedded_html": {
-            "type": "string",
-            "description": "HTML content for 3D Secure challenge"
-          }
-        }
-      },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": false
-          },
-          "status": {
-            "type": "string",
-            "example": "failed"
-          },
-          "error_code": {
-            "type": "string",
-            "example": "card_declined"
-          },
-          "error_message": {
-            "type": "string",
-            "example": "Card was declined"
-          },
-          "ref_order": {
-            "type": "string",
-            "example": "ORDER-123"
-          },
-          "amount": {
-            "type": "string",
-            "example": "19.99"
-          }
-        }
-      },
-      "TransactionStatusResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "example": true
-          },
-          "status": {
-            "type": "string",
-            "example": "success"
-          },
-          "data": {
+          {
+            "required": [
+              "id"
+            ],
             "type": "object",
             "properties": {
-              "amount": {
-                "type": "string",
-                "example": "19.99"
-              },
-              "payment_fees": {
-                "type": "string",
-                "example": "0.29"
-              },
-              "company_fees": {
-                "type": "string",
-                "example": "0.00"
-              },
-              "total_net": {
-                "type": "string",
-                "example": "19.70"
-              },
-              "is_3ds": {
-                "type": "boolean",
-                "example": false
-              },
-              "status": {
-                "type": "string",
-                "example": "paid"
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2025-03-11 13:11:30"
-              },
-              "updated_at": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2025-03-11 13:11:35"
-              },
-              "reference": {
-                "type": "string",
-                "example": "ORDER-123"
-              },
-              "customer": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Doe"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "customer@example.com"
-                  },
-                  "first_name": {
-                    "type": "string",
-                    "example": "John"
-                  },
-                  "country": {
-                    "type": "string",
-                    "example": "France"
-                  }
-                }
-              },
-              "store": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Example Store"
-                  }
-                }
-              },
-              "merchant": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "example": "20"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "Test_merchant"
-                  }
-                }
+              "id": {
+                "description": "Identification number of the plant",
+                "type": "integer",
+                "format": "int64"
               }
             }
+          }
+        ]
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
           }
         }
       }
     },
     "securitySchemes": {
-      "merchantKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-Merchant-Key"
-      },
-      "signatureAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-Payblis-Signature"
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
-  },
-  "security": [
-    {
-      "merchantKeyAuth": []
-    },
-    {
-      "signatureAuth": []
-    }
-  ]
+  }
 }
