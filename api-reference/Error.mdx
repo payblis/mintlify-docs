@@ -1,0 +1,16 @@
+---
+title: "Error Codes"
+description: "This section lists the possible error codes returned by the Payblis API, along with their messages and descriptions, to help you identify and troubleshoot issues during integration and transaction processing."
+---
+| **Code** | **Message**            | **Description**                    |
+|----------|------------------------|------------------------------------|
+| 400      | Invalid Request        | Missing token parameter            |
+| 401      | Invalid Data           | Base64 decoding failed             |
+| 402      | Invalid Data           | Unserialization failed             |
+| 403      | Authorization failed   | Invalid MerchantKey                |
+| 404      | Missing fields         | Required fields missing            |
+| 405      | Invalid Input          | Missing/invalid form field         |
+| 406      | Transaction failed     | Invalid transaction data           |
+| 407      | Invalid signature      | HMAC verification failed           |
+| 408      | Secret key not found   | Missing secret key                 |
+| 500      | Internal Server Error  | Server error                       |
