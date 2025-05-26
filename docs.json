@@ -45,7 +45,7 @@
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "REST API Integration",
             "pages": [
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
