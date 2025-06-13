@@ -15,7 +15,7 @@ All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X
 
 ```php PHP Implementation
 // Get the signature from the header
-$signature = $_SERVER['HTTP_X_PAYBLIS_SIGNATURE'] ?? '';
+$signature = $_SERVER['X-Payblis-Signature'] ?? '';
 
 // Get the raw POST data
 $payload = file_get_contents('php://input');
