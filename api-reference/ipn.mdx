@@ -11,7 +11,7 @@ Payblis provides three types of callbacks:
 
 ## IPN Security
 
-All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X-Payblis-Signature header.
+All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X-Payblis-Signature header or in JSON response.
 
 ```php PHP Implementation
 // Get the signature from the header
