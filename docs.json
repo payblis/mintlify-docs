@@ -37,7 +37,7 @@
           {
             "group": "Debug & Testing",
             "pages": [
-              "api-reference/error",
+              "api-reference/Error",
               "api-reference/card"
             ]
           },
