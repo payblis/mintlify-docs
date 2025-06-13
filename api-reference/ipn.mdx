@@ -13,6 +13,11 @@ Payblis provides three types of callbacks:
 
 All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X-Payblis-Signature header or in JSON response.
 
+<Note>
+Important
+Delete Signature before vérification.
+</Note>
+
 ```php PHP Implementation
 // Get the signature from the header
 $signature = $_SERVER['X-Payblis-Signature'] ?? '';
@@ -35,7 +40,7 @@ $data = json_decode($payload, true);
 
 ## IPN Example
 
-```mdx payment.success
+```c payment.success
 {
     "event": "payment.success",
     "merchant_reference": "Order-xxxxxxx",
