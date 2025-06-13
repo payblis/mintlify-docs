@@ -32,6 +32,7 @@ if (!hash_equals($expectedSignature, $signature)) {
 // Process the IPN data
 $data = json_decode($payload, true);
 ```
+
 ## IPN Example
 
 ```mdx payment.success
@@ -41,8 +42,10 @@ $data = json_decode($payload, true);
     "transaction_id": "PAYBxxxxxxx",
     "amount": "14.17",
     "status": "SUCCESS"
+    "signature": "6d6c157467d30f54ef4cff0e2a4a3434ef8274cdca77c4bfa228af3d62847492"
 }
 ```
+
 ```mdx payment.failed
 {
     "event": "payment.failed",
@@ -50,5 +53,6 @@ $data = json_decode($payload, true);
     "transaction_id": "PAYB-FAILED-6818766989175",
     "amount": "10",
     "status": "FAILED"
+    "signature": "6d6c157467d30f54ef4cff0e2a4a3434ef8274cdca77c4bfa228af3d62847492"
 }
 ```
