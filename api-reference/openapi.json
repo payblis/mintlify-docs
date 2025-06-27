@@ -302,9 +302,9 @@
             "type": "string",
             "example": "19.99"
           },
-          "three_ds_embedded_html": {
+          "three_ds_url": {
             "type": "string",
-            "description": "HTML content for 3D Secure challenge"
+            "description": "URL for 3D Secure challenge"
           }
         }
       },
