@@ -22,13 +22,6 @@
             ]
           },
           {
-            "group": "REST API Integration",
-            "pages": [
-              "api-reference/endpoint/create-order",
-              "api-reference/endpoint/transaction-status"
-            ]
-          },
-          {
             "group": "Callbacks & IPN",
             "pages": [
               "api-reference/ipn"
