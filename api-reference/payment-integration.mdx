@@ -39,7 +39,7 @@ $serializedData = serialize($MyVars);
 $encoded = base64_encode($serializedData);
 
 // Redirect to secure payment page
-$paymentUrl = "https://pay.payblis.com/api/payment.php?token=" . $encoded;
+$paymentUrl = "https://pay.payblis.com/api/payment_gateway.php?token=" . $encoded;
 header("Location: " . $paymentUrl);
 exit;
 ```
