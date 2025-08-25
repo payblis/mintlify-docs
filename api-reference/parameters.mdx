@@ -8,7 +8,7 @@ This section lists all required parameters for the Legacy integration method, wh
 | ------------------ | -------- | -------------------------------- | ------------ |
 | MerchantKey        | `String` | Your merchant identification key | Yes          |
 | amount             | `String` | Transaction amount (XX.XX)       | Yes          |
-| currency           | `String` | Currency  (EUR or USD )          | Yes          |
+| currency           | `String` | Currency  (EUR,USD,CAD )         | Yes          |
 | product_name       | `String` | Product name                     | Yes          |
 | method\*           | `String` | Payment method                   | Yes          |
 | RefOrder           | `String` | Unique order reference           | Yes          |
@@ -21,4 +21,4 @@ This section lists all required parameters for the Legacy integration method, wh
 | ipnURL             | `String` | IPN callback URL                 | Yes          |
 | signature          | `String` | HMAC-SHA256 signature            | Yes          |
 
-*Value = credit_cards,apple_pay,google_pay,paypal,revolut,sepa,open_banking
+\*Value = credit_cards,apple_pay,google_pay,paypal,revolut,sepa,open_banking
