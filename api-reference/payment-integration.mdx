@@ -26,22 +26,16 @@ $MyVars = array(
     'ipnURL' => 'https://your-domain.com/ipn'
 );
 
-// Clone data BEFORE adding signature
-$varsToSign = $MyVars;
-
-// Secure signature
-$secret_key = 'YOUR_SECRET_KEY';
-$signature = hash_hmac('sha256', json_encode($varsToSign), $secret_key);
-
-// Add signature after calculation
-$MyVars['signature'] = $signature;
-
-// Encoding
+// Serialize the data (convert array to string format)
 $serializedData = serialize($MyVars);
+
+// Base64 encode the serialized data directly (no URL encoding)
 $encoded = base64_encode($serializedData);
 
-// Redirect to secure payment page
+// Prepare the custom payment URL
 $paymentUrl = "https://pay.payblis.com/api/payment_gateway.php?token=" . $encoded;
+
+// Redirect the user to your custom endpoint (payment page)
 header("Location: " . $paymentUrl);
 exit;
 ```
