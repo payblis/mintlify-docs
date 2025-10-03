@@ -10,10 +10,10 @@ The Legacy Integration method uses a secure redirection flow that sends customer
 $MyVars = array(
     'MerchantKey' => 'YOUR_MERCHANT_KEY',
     'amount' => '19.99',
-    'currency' => 'EUR', //EUR,USD, CAD
+    'currency' => 'EUR', //EUR,GBP
     'product_name' => 'Test product',
     'method' => 'credit_cards',
-    'RefOrder' => 'ORDER-',
+    'RefOrder' => 'ORDER-', //Maximum length is 12 symbols
     'Customer_Email' => 'customer@example.com',
     'Customer_Name' => 'Doe',
     'Customer_FirstName' => 'John',
@@ -33,7 +33,7 @@ $serializedData = serialize($MyVars);
 $encoded = base64_encode($serializedData);
 
 // Prepare the custom payment URL
-$paymentUrl = "https://pay.payblis.com/api/payment_gateway.php?token=" . $encoded;
+$paymentUrl = "https://pay.payblis.com/api/routing-ob.php?token=" . $encoded;
 
 // Redirect the user to your custom endpoint (payment page)
 header("Location: " . $paymentUrl);
