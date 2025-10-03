@@ -1,9 +1,9 @@
 ---
 title: "Integration - Open Banking"
-description: "Processing Payments with Legacy Payblis intégration"
+description: "Processing Payments with Open Banking Payblis Integration"
 ---
 
-The Legacy Integration method uses a secure redirection flow that sends customers to the Payblis hosted checkout page, where payment is processed and the result is returned via callback URLs.
+The Open Banking Integration method uses a secure redirection flow that sends customers to their bank’s authentication page, where the payment is authorized. The result is then returned to Payblis and communicated back to the merchant via callback URLs.
 
 ```php PHP Implementation
 // Set up the request parameters
