@@ -9,13 +9,16 @@ Payblis provides three types of callbacks:
 - **Failure URL (urlKO)**: Customer redirection after failed payment
 - **IPN URL (ipnURL)**: Server-to-server notification
 
+<Note>
+  IPN TESTING : We send manualy IPN Notify to your IPN URL, when you have send your request for create order, please contact us in Télégram, we will send IPN Notify.
+</Note>
+
 ## IPN Security
 
 All IPN notifications are signed with HMAC-SHA256. Verify the signature in the X-Payblis-Signature header or in JSON response.
 
 <Note>
-Important
-Delete Signature before vérification.
+  Important Delete Signature before vérification.
 </Note>
 
 ```php PHP Implementation
