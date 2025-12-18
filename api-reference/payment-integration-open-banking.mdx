@@ -40,7 +40,7 @@ $MyVars = array(
     'amount' => '19.99',
     'currency' => 'EUR', //EUR,GBP
     'product_name' => 'Test product',
-    'method' => 'open_banking',
+    'provider_or' => 'pb-pbbank',
     'RefOrder' => 'xxxxxx', //Maximum length is 12 symbols
     'Customer_Email' => 'customer@example.com',
     'Customer_Name' => 'Doe',
@@ -61,7 +61,7 @@ $serializedData = serialize($MyVars);
 $encoded = base64_encode($serializedData);
 
 // Prepare the custom payment URL
-$paymentUrl = "https://pay.payblis.com/api/payment_gateway.php?token=" . $encoded;
+$paymentUrl = "https://pay.payblis.com/api/dp-onramp.php?token=" . $encoded;
 
 // Redirect the user to your custom endpoint (payment page)
 header("Location: " . $paymentUrl);
