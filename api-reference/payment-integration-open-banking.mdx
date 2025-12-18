@@ -37,7 +37,7 @@ The Open Banking Integration method uses a secure redirection flow that sends cu
 // Set up the request parameters
 $MyVars = array(
     'MerchantKey' => 'YOUR_API_KEY',
-    'amount' => '19.99',
+    'amount' => '19.99', // Min order 15
     'currency' => 'EUR', //EUR,GBP
     'product_name' => 'Test product',
     'provider_or' => 'pb-pbbank',
@@ -65,5 +65,5 @@ $paymentUrl = "https://pay.payblis.com/api/dp-onramp.php?token=" . $encoded;
 
 // Redirect the user to your custom endpoint (payment page)
 header("Location: " . $paymentUrl);
-exit;
+exit; //
 ```
