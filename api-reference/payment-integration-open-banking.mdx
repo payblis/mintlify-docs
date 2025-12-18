@@ -6,37 +6,37 @@ description: "Processing Payments with Open Banking Payblis Integration"
 The Open Banking Integration method uses a secure redirection flow that sends customers to their bank’s authentication page, where the payment is authorized. The result is then returned to Payblis and communicated back to the merchant via callback URLs.
 
 <AccordionGroup>
-    <Accordion title="Available country">
-GB → United Kingdom
-      
-FR → France
+  <Accordion title="Available country">
+    GB → United Kingdom
 
-BE → Belgique
+    FR → France
 
-CH → Suisse
+    BE → Belgique
 
-DE → Allemagne
+    CH → Suisse
 
-ES → Espagne
+    DE → Allemagne
 
-FI → Finlande
+    ES → Espagne
 
-IT → Italie
+    FI → Finlande
 
-LU → Luxembourg
+    IT → Italie
 
-NL → Pays-Bas
+    LU → Luxembourg
 
-PT → Portugal
+    NL → Pays-Bas
 
-SE → Suède
+    PT → Portugal
+
+    SE → Suède
   </Accordion>
 </AccordionGroup>
 
 ```php PHP Implementation
 // Set up the request parameters
 $MyVars = array(
-    'MerchantKey' => 'YOUR_MERCHANT_KEY',
+    'MerchantKey' => 'YOUR_API_KEY',
     'amount' => '19.99',
     'currency' => 'EUR', //EUR,GBP
     'product_name' => 'Test product',
