@@ -1,0 +1,44 @@
+---
+title: "Subscription Integration"
+description: "Subscription Payments with Payblis intégration"
+---
+
+This Integration method uses a secure redirection flow that sends customers to the Payblis hosted checkout page, where payment is processed and the result is returned via callback URLs.
+
+```php PHP Implementation
+// Set up the request parameters
+$MyVars = array(
+    'MerchantKey' => 'YOUR_API_KEY',
+    'sandbox' => 'true', //Only for TEST MODE
+    'amount' => '19.99',
+    'frequency' => 'monthly', //Monthly or Weekly
+    'days' => '15', //[1 to 31] for monthly;[monday to sunday] for weekly
+    'currency' => 'EUR', //EUR,USD,CAD
+    'product_name' => 'Test product',
+    'method' => 'credit_cards',
+    'RefOrder' => 'xxxxx',
+    'Customer_Email' => 'customer@example.com',
+    'Customer_Name' => 'Doe',
+    'Customer_FirstName' => 'John',
+    'country' => 'FR',
+    'userIP' => $_SERVER['REMOTE_ADDR'],
+    'lang' => 'en',
+    'store_name' => 'Example Store',
+    'urlOK' => 'https://your-domain.com/success',
+    'urlKO' => 'https://your-domain.com/failed',
+    'ipnURL' => 'https://your-domain.com/ipn'
+);
+
+// Serialize the data (convert array to string format)
+$serializedData = serialize($MyVars);
+
+// Base64 encode the serialized data directly (no URL encoding)
+$encoded = base64_encode($serializedData);
+
+// Prepare the custom payment URL
+$paymentUrl = "https://pay.payblis.com/api/mid9-subscription.php?token=" . $encoded;
+
+// Redirect the user to your custom endpoint (payment page)
+header("Location: " . $paymentUrl);
+exit;
+```

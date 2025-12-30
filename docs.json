@@ -19,6 +19,7 @@
               "api-reference/introduction",
               "api-reference/payment-integration",
               "api-reference/payment-integration-open-banking",
+              "api-reference/subscription-integration",
               "api-reference/parameters"
             ]
           },
