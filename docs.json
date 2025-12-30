@@ -44,12 +44,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/logo-black.png",
