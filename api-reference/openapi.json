@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://sandbox.payblis.com"
+      "url": "https://pay.payblis.com"
     }
   ],
   "paths": {
