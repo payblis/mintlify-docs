@@ -375,6 +375,10 @@
                 "type": "string",
                 "example": "paid"
               },
+              "payout_status": {
+                "type": "string",
+                "example": "yes"
+              },
               "created_at": {
                 "type": "string",
                 "format": "date-time",
