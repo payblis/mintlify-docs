@@ -1,0 +1,41 @@
+---
+title: "Direct provider mode"
+description: "Processing Payments with our Direct_provider mode"
+---
+
+The direct_provider integration uses a secure redirection flow that sends customers directly to the payment provider’s hosted page, where the payment is processed. The customer does not pass through a Payblis checkout, and the result is returned via callback URLs.
+
+```php PHP Implementation
+// Set up the request parameters
+$MyVars = array(
+    'MerchantKey' => 'YOUR_API_KEY',
+  	'provider_or' => 'pb-moonpay', // api_name
+    'amount' => '19.99',
+    'currency' => 'EUR', //EUR,USD, CAD
+    'product_name' => 'Test product',
+    'RefOrder' => 'xxxxx',
+    'Customer_Email' => 'customer@example.com',
+    'Customer_Name' => 'Doe',
+    'Customer_FirstName' => 'John',
+    'country' => 'FR',
+    'userIP' => $_SERVER['REMOTE_ADDR'],
+    'lang' => 'en',
+    'store_name' => 'Example Store',
+    'urlOK' => 'https://your-domain.com/success',
+    'urlKO' => 'https://your-domain.com/failed',
+    'ipnURL' => 'https://your-domain.com/ipn'
+);
+
+// Serialize the data (convert array to string format)
+$serializedData = serialize($MyVars);
+
+// Base64 encode the serialized data directly (no URL encoding)
+$encoded = base64_encode($serializedData);
+
+// Prepare the custom payment URL
+$paymentUrl = "https://pay.payblis.com/api/dp-onramp.php?token=" . $encoded;
+
+// Redirect the user to your custom endpoint (payment page)
+header("Location: " . $paymentUrl);
+exit;
+```
