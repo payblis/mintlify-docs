@@ -29,12 +29,6 @@
             ]
           },
           {
-            "group": "Debug & Testing",
-            "pages": [
-              "api-reference/error"
-            ]
-          },
-          {
             "group": "Plugin & CMS",
             "pages": [
               "api-reference/plugins"
