@@ -31,8 +31,7 @@
           {
             "group": "Debug & Testing",
             "pages": [
-              "api-reference/error",
-              "api-reference/card"
+              "api-reference/error"
             ]
           },
           {
